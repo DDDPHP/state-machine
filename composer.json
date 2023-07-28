@@ -1,0 +1,27 @@
+{
+    "name": "dddphp/state-machine",
+    "description": "State Machine for PHP",
+    "type": "library",
+    "license": "AGPL-3.0-only",
+    "autoload": {
+        "psr-4": {
+            "DDDPHP\\StateMachine\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DDDPHP\\StateMachine\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.2",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.2",
+        "vimeo/psalm": "^5.13"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
