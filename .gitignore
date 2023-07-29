@@ -1,5 +1,13 @@
-/vendor/
+# composer vendor dir
+/vendor
+
 /composer.lock
+
+# composer itself is not needed
+composer.phar
 
 # PHPUnit
 .phpunit.cache
+
+# phpunit itself is not needed
+phpunit.phar
