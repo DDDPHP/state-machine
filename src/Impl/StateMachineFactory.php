@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine;
+namespace DDDPHP\StateMachine\Impl;
 
 use DDDPHP\StateMachine\Impl\StateMachineException;
 use DDDPHP\StateMachine\StateMachineInterface;
+use DDDPHP\StateMachine\StateMachineFactoryInterface;
 
-class StateMachineFactory
+class StateMachineFactory implements StateMachineFactoryInterface
 {
-    protected array $stateMachineMap = array();
+    private array $stateMachineMap = array();
 
     public function register(StateMachineInterface $stateMachine): void
     {
@@ -25,7 +26,6 @@ class StateMachineFactory
         if(array_key_exists($machineId, $this->stateMachineMap) === false) {
             throw new StateMachineException("There is no stateMachine instance for ".$machineId.", please build it first");
         }
-        $stateMachine = $this->stateMachineMap[$machineId];
-        return $stateMachine;
+        return $this->stateMachineMap[$machineId];
     }
 }

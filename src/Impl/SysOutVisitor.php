@@ -26,7 +26,7 @@ class SysOutVisitor implements VisitorInterface
 
     public function visitOnEntryByState(StateInterface $state): string
     {
-        $stateStr = "State:"+$state->getId();
+        $stateStr = "State:" . $state->getId();
         $stateStr .= self::LF;
         $resultStr = $stateStr;
         echo $stateStr;
@@ -41,7 +41,7 @@ class SysOutVisitor implements VisitorInterface
 
     public function visitOnExitByState(StateInterface $state): string
     {
-        $stateStr = "End State:"+$state->getId();
+        $stateStr = "End State:" . $state->getId();
         $stateStr .= self::LF;
         echo $stateStr;
         return $stateStr;

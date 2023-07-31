@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
+use DDDPHP\StateMachine\StateMachineFactoryInterface;
 use DDDPHP\StateMachine\StateMachineInterface;
 
 interface StateMachineBuilderInterface
@@ -14,4 +15,6 @@ interface StateMachineBuilderInterface
     public function internalTransition(): InternalTransitionBuilderInterface;
 
     public function build(string $machineId): StateMachineInterface;
+
+    public function getStateMachineFactory(): StateMachineFactoryInterface;
 }

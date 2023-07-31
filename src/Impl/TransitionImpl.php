@@ -18,7 +18,7 @@ class TransitionImpl implements TransitionInterface
     private ActionInterface $action;
     private int $type = TransitionType::EXTERNAL;
 
-    public function getSource(): StateInterface 
+    public function getSource(): StateInterface
     {
         return $this->source;
     }
@@ -48,7 +48,7 @@ class TransitionImpl implements TransitionInterface
         return $this->target;
     }
 
-    public function setTarget(StateInterface $target): void 
+    public function setTarget(StateInterface $target): void
     {
         $this->target = $target;
     }
@@ -76,10 +76,8 @@ class TransitionImpl implements TransitionInterface
     public function transit($ctx, bool $checkCondition): StateInterface
     {
         $this->verify();
-        if (!$checkCondition || $this->condition === null || $this->condition->isSatisfied($ctx)) {
-            if($this->action != null){
-                $this->action->execute($this->source->getId(), $this->target->getId(), $this->event, $ctx);
-            }
+        if (!$checkCondition || $this->condition->isSatisfied($ctx)) {
+            $this->action->execute($this->source->getId(), $this->target->getId(), $this->event, $ctx);
             return $this->target;
         }
         return $this->source;
@@ -87,18 +85,16 @@ class TransitionImpl implements TransitionInterface
 
     public function __toString(): string
     {
-        return $this->source + "-[" . $this->event .", ".$this->type."]->" . $this->target;
+        return $this->source->getId() . "-[" . $this->event .", ".$this->type."]->" . $this->target->getId();
     }
 
     public function equals(TransitionInterface $anObject): bool
     {
-        if($anObject instanceof TransitionInterface){
-            if($this->event === $anObject->getEvent()
-                    && $this->source === $anObject->getSource()
-                    && $this->target === $anObject->getTarget())
-            {
-                return true;
-            }
+        if($this->event === $anObject->getEvent()
+                && $this->source === $anObject->getSource()
+                && $this->target === $anObject->getTarget())
+        {
+            return true;
         }
         return false;
     }
