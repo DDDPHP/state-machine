@@ -67,8 +67,7 @@ class StateMachineImpl implements StateMachineInterface
 
     private function getState(string $currentStateId): StateInterface
     {
-        $state = StateHelper::getState($this->stateMap, $currentStateId);
-        return $state;
+        return StateHelper::getState($this->stateMap, $currentStateId);
     }
 
     private function isReady(): void

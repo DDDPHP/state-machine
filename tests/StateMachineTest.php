@@ -7,6 +7,7 @@ namespace DDDPHP\StateMachine\Tests;
 use DDDPHP\StateMachine\ActionInterface;
 use DDDPHP\StateMachine\Builder\StateMachineBuilderFactory;
 use DDDPHP\StateMachine\ConditionInterface;
+use DDDPHP\StateMachine\StateMachineInterface;
 use PHPUnit\Framework\TestCase;
 
 final class StateMachineTest extends TestCase
@@ -26,7 +27,8 @@ final class StateMachineTest extends TestCase
 
     public static string $context = 'operator:frank, entityId:123465';
 
-    public function testExternalNormal() {
+    public function testExternalNormal(): void
+    {
         $builder = StateMachineBuilderFactory::create();
         $builder->externalTransition()
             ->from(self::STATE1)
@@ -39,6 +41,110 @@ final class StateMachineTest extends TestCase
         $this->assertEquals(self::STATE2, $target);
     }
 
+    public function testVerify(): void
+    {
+        $builder = StateMachineBuilderFactory::create();
+        $builder->externalTransition()
+            ->from(self::STATE1)
+            ->to(self::STATE2)
+            ->on(self::EVENT1)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $stateMachine = $builder->build(self::MACHINE_ID . "-testVerify");
+
+        $this->assertTrue($stateMachine->verify(self::STATE1, self::EVENT1));
+        $this->assertFalse($stateMachine->verify(self::STATE1, self::EVENT2));
+    }
+
+    public function testExternalTransitionsNormal(): void
+    {
+        $builder = StateMachineBuilderFactory::create();
+        $builder->externalTransitions()
+            ->fromAmong(self::STATE1, self::STATE2, self::STATE3)
+            ->to(self::STATE4)
+            ->on(self::EVENT1)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $stateMachine = $builder->build(self::MACHINE_ID . "1");
+        $target = $stateMachine->fireEvent(self::STATE2, self::EVENT1, self::$context);
+        $this->assertEquals(self::STATE4, $target);
+    }
+
+    public function testInternalNormal(): void
+    {
+        $builder = StateMachineBuilderFactory::create();
+        $builder->internalTransition()
+            ->within(self::STATE1)
+            ->on(self::INTERNAL_EVENT)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+        $stateMachine = $builder->build(self::MACHINE_ID . "2");
+
+        $stateMachine->fireEvent(self::STATE1, self::EVENT1, self::$context);
+        $target = $stateMachine->fireEvent(self::STATE1, self::INTERNAL_EVENT, self::$context);
+        $this->assertEquals(self::STATE1, $target);
+    }
+
+    public function testExternalInternalNormal(): void
+    {
+        $stateMachine = $this->buildStateMachine("testExternalInternalNormal");
+
+        $context = self::$context;
+        $target = $stateMachine->fireEvent(self::STATE1, self::EVENT1, $context);
+        $this->assertEquals(self::STATE2, $target);
+        $target = $stateMachine->fireEvent(self::STATE2, self::INTERNAL_EVENT, $context);
+        $this->assertEquals(self::STATE2, $target);
+        $target = $stateMachine->fireEvent(self::STATE2, self::EVENT2, $context);
+        $this->assertEquals(self::STATE1, $target);
+        $target = $stateMachine->fireEvent(self::STATE1, self::EVENT3, $context);
+        $this->assertEquals(self::STATE3, $target);
+    }
+
+    private function buildStateMachine(string $machineId): StateMachineInterface
+    {
+        $builder = StateMachineBuilderFactory::create();
+        $builder->externalTransition()
+            ->from(self::STATE1)
+            ->to(self::STATE2)
+            ->on(self::EVENT1)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $builder->internalTransition()
+            ->within(self::STATE2)
+            ->on(self::INTERNAL_EVENT)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $builder->externalTransition()
+            ->from(self::STATE2)
+            ->to(self::STATE1)
+            ->on(self::EVENT2)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $builder->externalTransition()
+            ->from(self::STATE1)
+            ->to(self::STATE3)
+            ->on(self::EVENT3)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $builder->externalTransitions()
+            ->fromAmong(self::STATE1, self::STATE2, self::STATE3)
+            ->to(self::STATE4)
+            ->on(self::EVENT4)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+
+        $builder->build($machineId);
+
+        $stateMachine = $builder->getStateMachineFactory()->get($machineId);
+        $stateMachine->showStateMachine();
+        return $stateMachine;
+    }
     private function checkCondition(): ConditionInterface
     {
         return new class () implements ConditionInterface {

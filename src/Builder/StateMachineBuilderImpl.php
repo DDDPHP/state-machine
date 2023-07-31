@@ -6,7 +6,8 @@ namespace DDDPHP\StateMachine\Builder;
 
 use DDDPHP\StateMachine\Impl\StateMachineImpl;
 use DDDPHP\StateMachine\Impl\TransitionType;
-use DDDPHP\StateMachine\StateMachineFactory;
+use DDDPHP\StateMachine\Impl\StateMachineFactory;
+use DDDPHP\StateMachine\StateMachineFactoryInterface;
 use DDDPHP\StateMachine\StateMachineInterface;
 
 class StateMachineBuilderImpl implements StateMachineBuilderInterface
@@ -14,9 +15,12 @@ class StateMachineBuilderImpl implements StateMachineBuilderInterface
     private array $stateMap = [];
     private StateMachineImpl $stateMachine;
 
+    private StateMachineFactoryInterface $stateMachineFactory;
+
     public function __construct()
     {
         $this->stateMachine = new StateMachineImpl($this->stateMap);
+        $this->stateMachineFactory = new StateMachineFactory();
     }
 
     public function externalTransition():  ExternalTransitionBuilderInterface
@@ -38,7 +42,12 @@ class StateMachineBuilderImpl implements StateMachineBuilderInterface
     {
         $this->stateMachine->setMachineId($machineId);
         $this->stateMachine->setReady(true);
-        (new StateMachineFactory)->register($this->stateMachine);
+        $this->stateMachineFactory->register($this->stateMachine);
         return $this->stateMachine;
+    }
+
+    public function getStateMachineFactory(): StateMachineFactoryInterface
+    {
+        return $this->stateMachineFactory;
     }
 }
