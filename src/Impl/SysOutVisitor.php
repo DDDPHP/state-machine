@@ -30,6 +30,7 @@ class SysOutVisitor implements VisitorInterface
         $stateStr .= self::LF;
         $resultStr = $stateStr;
         echo $stateStr;
+        $transitionStr = '';
         foreach ($state->getAllTransitions() as $transition){
             $transitionStr .= ("    Transition:".$transition);
             $transitionStr .= self::LF;

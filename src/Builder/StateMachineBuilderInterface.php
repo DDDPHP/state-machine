@@ -16,5 +16,5 @@ interface StateMachineBuilderInterface
 
     public function build(string $machineId): StateMachineInterface;
 
-    public function getStateMachineFactory(): StateMachineFactoryInterface;
+    public function getFactory(): StateMachineFactoryInterface;
 }
