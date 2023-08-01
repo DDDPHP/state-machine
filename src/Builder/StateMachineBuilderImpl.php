@@ -46,7 +46,7 @@ class StateMachineBuilderImpl implements StateMachineBuilderInterface
         return $this->stateMachine;
     }
 
-    public function getStateMachineFactory(): StateMachineFactoryInterface
+    public function getFactory(): StateMachineFactoryInterface
     {
         return $this->stateMachineFactory;
     }

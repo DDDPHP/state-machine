@@ -18,13 +18,10 @@ class EventTransitions
 
     public function put(string $event, TransitionInterface $transition): void
     {
-        if (empty($eventTransitions[$event]) === true) {
-            $transitions[] = $transition;
-            $this->eventTransitions[$event] = $transitions;
-        } else {
+        if (empty($eventTransitions[$event]) === false) {
             $this->verify($this->eventTransitions[$event], $transition);
-            $this->eventTransitions[$event][] = $transition;
         }
+        $this->eventTransitions[$event][] = $transition;
     }
 
     private function verify(array $existingTransitions, TransitionInterface $newTransition): void

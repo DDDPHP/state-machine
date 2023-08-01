@@ -34,7 +34,7 @@ class TransitionsBuilderImpl extends TransitionBuilderImpl implements ExternalTr
     }
 
     public function when(ConditionInterface $condition): WhenInterface{
-        foreach ($this->transitions as $transition) {
+        foreach ($this->transitions as &$transition) {
             $transition->setCondition($condition);
         }
         return $this;
@@ -42,7 +42,7 @@ class TransitionsBuilderImpl extends TransitionBuilderImpl implements ExternalTr
 
     public function perform(ActionInterface $action): void
     {
-        foreach ($this->transitions as $transition) {
+        foreach ($this->transitions as &$transition) {
             $transition->setAction($action);
         }
     }
