@@ -8,7 +8,7 @@ interface StateMachineInterface extends VisitableInterface
 {
     public function verify(string $sourceStateId, $event): bool;
 
-    public function fireEvent(string $sourceStateId, $event, $context): string;
+    public function fire(string $sourceStateId, $event, $context): string;
 
     public function getMachineId(): string;
 
