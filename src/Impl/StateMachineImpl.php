@@ -32,7 +32,7 @@ class StateMachineImpl implements StateMachineInterface
         return $transitions != null && count($transitions) != 0;
     }
 
-    public function fireEvent(string $sourceStateId, $event, $ctx): string
+    public function fire(string $sourceStateId, $event, $ctx): string
     {
         $this->isReady();
         $transition = $this->routeTransition($sourceStateId, $event, $ctx);

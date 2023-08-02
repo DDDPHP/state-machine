@@ -66,21 +66,21 @@ final class StateMachineChoiceTest extends TestCase
 
         $stateMachine = $builder->build("ChoiceConditionMachine");
 
-        $target1 = $stateMachine->fireEvent(
+        $target1 = $stateMachine->fire(
             StateMachineTest::STATE1,
             StateMachineTest::EVENT1,
             $this->getContext("1")
         );
         $this->assertEquals(StateMachineTest::STATE1, $target1);
 
-        $target2 = $stateMachine->fireEvent(
+        $target2 = $stateMachine->fire(
             StateMachineTest::STATE1,
             StateMachineTest::EVENT1,
             $this->getContext("2")
         );
         $this->assertEquals(StateMachineTest::STATE2, $target2);
 
-        $target3 = $stateMachine->fireEvent(
+        $target3 = $stateMachine->fire(
             StateMachineTest::STATE1,
             StateMachineTest::EVENT1,
             $this->getContext("3")

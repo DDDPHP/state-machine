@@ -38,7 +38,7 @@ final class StateMachineTest extends TestCase
             ->perform($this->doAction());
         $stateMachine = $builder->build(self::MACHINE_ID);
 
-        $target = $stateMachine->fireEvent(self::STATE1, self::EVENT1, $this->context);
+        $target = $stateMachine->fire(self::STATE1, self::EVENT1, $this->context);
         $this->assertEquals(self::STATE2, $target);
     }
 
@@ -68,7 +68,7 @@ final class StateMachineTest extends TestCase
             ->perform($this->doAction());
         $stateMachine = $builder->build(self::MACHINE_ID . "1");
 
-        $target = $stateMachine->fireEvent(self::STATE2, self::EVENT1, $this->context);
+        $target = $stateMachine->fire(self::STATE2, self::EVENT1, $this->context);
         $this->assertEquals(self::STATE4, $target);
     }
 
@@ -82,8 +82,8 @@ final class StateMachineTest extends TestCase
             ->perform($this->doAction());
         $stateMachine = $builder->build(self::MACHINE_ID . "2");
 
-        $stateMachine->fireEvent(self::STATE1, self::EVENT1, $this->context);
-        $target = $stateMachine->fireEvent(self::STATE1, self::INTERNAL_EVENT, $this->context);
+        $stateMachine->fire(self::STATE1, self::EVENT1, $this->context);
+        $target = $stateMachine->fire(self::STATE1, self::INTERNAL_EVENT, $this->context);
         $this->assertEquals(self::STATE1, $target);
     }
 
@@ -92,16 +92,16 @@ final class StateMachineTest extends TestCase
         $stateMachine = $this->buildStateMachine("testExternalInternalNormal");
 
         $context = $this->context;
-        $target = $stateMachine->fireEvent(self::STATE1, self::EVENT1, $context);
+        $target = $stateMachine->fire(self::STATE1, self::EVENT1, $context);
         $this->assertEquals(self::STATE2, $target);
 
-        $target = $stateMachine->fireEvent(self::STATE2, self::INTERNAL_EVENT, $context);
+        $target = $stateMachine->fire(self::STATE2, self::INTERNAL_EVENT, $context);
         $this->assertEquals(self::STATE2, $target);
-    
-        $target = $stateMachine->fireEvent(self::STATE2, self::EVENT2, $context);
+
+        $target = $stateMachine->fire(self::STATE2, self::EVENT2, $context);
         $this->assertEquals(self::STATE1, $target);
 
-        $target = $stateMachine->fireEvent(self::STATE1, self::EVENT3, $context);
+        $target = $stateMachine->fire(self::STATE1, self::EVENT3, $context);
         $this->assertEquals(self::STATE3, $target);
     }
 
