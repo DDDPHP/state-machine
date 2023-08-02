@@ -52,13 +52,13 @@ After state machine builder was created, we can use fluent API to define state/t
         ->perform($this->doAction());
     ```
 
-    An **internal transition** with priority set to high is build inside state 'A' on event 'WithinA' perform 'myAction'. The internal transition means after transition complete, no state is exited or entered. The transition priority is used to override original transition when state machine extended.
+    An **internal transition** with priority set to high is build inside state 'A' on event 'INTERNAL_EVENT' perform '$this->doAction()'. The internal transition means after transition complete, no state is exited or entered. The transition priority is used to override original transition when state machine extended.
 
     ```php
     $builder->externalTransition()
-            ->from(self::STATE1)
-            ->to(self::STATE2)
-            ->on(self::EVENT1)
+            ->from(self::STATEC)
+            ->to(self::STATED)
+            ->on(self::EVENTGoToD)
             ->when(
                 new class () implements ConditionInterface {
                     public function isSatisfied($context): bool
