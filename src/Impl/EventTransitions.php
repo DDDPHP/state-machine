@@ -33,7 +33,7 @@ class EventTransitions
         }
     }
 
-    public function get($event): array
+    public function get(string $event): array
     {
         return $this->eventTransitions[$event] ?? [];
     }

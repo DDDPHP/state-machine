@@ -26,7 +26,7 @@ class TransitionsBuilderImpl extends TransitionBuilderImpl implements ExternalTr
         return $this;
     }
 
-    public function on($event): OnInterface{
+    public function on(string $event): OnInterface{
         foreach ($this->sources as $source) {
             $this->transitions[] = $source->addTransition($event, $this->target, $this->transitionType);
         }

@@ -22,7 +22,7 @@ class StateMachineImpl implements StateMachineInterface
         $this->stateMap = &$stateMap;
     }
 
-    public function verify(string $sourceStateId, $event): bool
+    public function verify(string $sourceStateId, string $event): bool
     {
         $this->isReady();
 
@@ -32,18 +32,18 @@ class StateMachineImpl implements StateMachineInterface
         return $transitions != null && count($transitions) != 0;
     }
 
-    public function fire(string $sourceStateId, $event, $ctx): string
+    public function fire(string $sourceStateId, string $event, $context): string
     {
         $this->isReady();
-        $transition = $this->routeTransition($sourceStateId, $event, $ctx);
+        $transition = $this->routeTransition($sourceStateId, $event, $context);
         if ($transition == null) {
             return $sourceStateId;
         }
 
-        return $transition->transit($ctx, false)->getId();
+        return $transition->transit($context, false)->getId();
     }
 
-    private function routeTransition(string $sourceStateId, $event, $ctx): ?TransitionInterface
+    private function routeTransition(string $sourceStateId, string $event, $ctx): ?TransitionInterface
     {
         $sourceState = $this->getState($sourceStateId);
 

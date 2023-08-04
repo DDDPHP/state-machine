@@ -8,9 +8,9 @@ interface StateInterface
 {
     public function getId();
 
-    public function addTransition($event, StateInterface $target, int $transitionType): TransitionInterface;
+    public function addTransition(string $event, StateInterface $target, int $transitionType): TransitionInterface;
 
-    public function getEventTransitions($event): array;
+    public function getEventTransitions(string $event): array;
 
     public function getAllTransitions(): array;
 }

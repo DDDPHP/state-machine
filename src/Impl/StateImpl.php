@@ -19,7 +19,7 @@ class StateImpl implements StateInterface
         $this->eventTransitions = new EventTransitions();
     }
 
-    public function addTransition($event, StateInterface $target, int $transitionType): TransitionInterface
+    public function addTransition(string $event, StateInterface $target, int $transitionType): TransitionInterface
     {
         $newTransition = new TransitionImpl;
         $newTransition->setSource($this);
@@ -30,7 +30,7 @@ class StateImpl implements StateInterface
         return $newTransition;
     }
 
-    public function getEventTransitions($event): array
+    public function getEventTransitions(string $event): array
     {
         return $this->eventTransitions->get($event);
     }
