@@ -6,5 +6,5 @@ namespace DDDPHP\StateMachine\Builder;
 
 interface ToInterface
 {
-    public function on($event): OnInterface;
+    public function on(string $event): OnInterface;
 }

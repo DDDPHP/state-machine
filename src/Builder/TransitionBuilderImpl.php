@@ -57,7 +57,7 @@ class TransitionBuilderImpl implements ExternalTransitionBuilderInterface, Inter
         return $this;
     }
 
-    public function on($event): OnInterface
+    public function on(string $event): OnInterface
     {
         $this->transition = $this->source->addTransition($event, $this->target, $this->transitionType);
         return $this;

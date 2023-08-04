@@ -6,9 +6,9 @@ namespace DDDPHP\StateMachine;
 
 interface StateMachineInterface extends VisitableInterface
 {
-    public function verify(string $sourceStateId, $event): bool;
+    public function verify(string $sourceStateId, string $event): bool;
 
-    public function fire(string $sourceStateId, $event, $context): string;
+    public function fire(string $sourceStateId, string $event, $context): string;
 
     public function getMachineId(): string;
 
