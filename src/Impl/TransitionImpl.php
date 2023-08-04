@@ -33,7 +33,7 @@ class TransitionImpl implements TransitionInterface
         return $this->event;
     }
 
-    public function setEvent($event): void
+    public function setEvent(string $event): void
     {
         $this->event = $event;
     }

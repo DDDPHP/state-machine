@@ -6,5 +6,5 @@ namespace DDDPHP\StateMachine;
 
 interface ActionInterface
 {
-    public function execute($from, $to, $event, $context): void;
+    public function execute(string $from, string $to, string $event, $context): void;
 }
