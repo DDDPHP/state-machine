@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Impl;
 
+use DDDPHP\StateMachine\Dispatcher\AbstractSubject;
+use DDDPHP\StateMachine\Event\PostTransitionEventInterface;
+use DDDPHP\StateMachine\Event\PreTransitionEventInterface;
+use DDDPHP\StateMachine\Provider\Event;
 use DDDPHP\StateMachine\StateInterface;
 use DDDPHP\StateMachine\StateMachineInterface;
 use DDDPHP\StateMachine\TransitionInterface;
 use DDDPHP\StateMachine\VisitorInterface;
 
-class StateMachineImpl implements StateMachineInterface
+class StateMachineImpl extends AbstractSubject implements StateMachineInterface
 {
     private string $machineId;
 
@@ -19,6 +23,7 @@ class StateMachineImpl implements StateMachineInterface
 
     public function __construct(array &$stateMap)
     {
+        parent::__construct();
         $this->stateMap = &$stateMap;
     }
 
@@ -32,15 +37,34 @@ class StateMachineImpl implements StateMachineInterface
         return $transitions != null && count($transitions) != 0;
     }
 
+    private function isReady(): void
+    {
+        if (!$this->ready) {
+            throw new StateMachineException("State machine is not built yet, can not work");
+        }
+    }
+
+    private function getState(string $currentStateId): StateInterface
+    {
+        return StateHelper::getState($this->stateMap, $currentStateId);
+    }
+
     public function fire(string $sourceStateId, string $event, $context): string
     {
         $this->isReady();
+        $this->fireEvent(new class () implements PreTransitionEventInterface {
+        });
         $transition = $this->routeTransition($sourceStateId, $event, $context);
         if ($transition == null) {
             return $sourceStateId;
         }
 
-        return $transition->transit($context, false)->getId();
+        $target = $transition->transit($context, false)->getId();
+
+        $this->fireEvent(new class () implements PostTransitionEventInterface {
+        });
+
+        return $target;
     }
 
     private function routeTransition(string $sourceStateId, string $event, $ctx): ?TransitionInterface
@@ -65,16 +89,10 @@ class StateMachineImpl implements StateMachineInterface
         return $transit;
     }
 
-    private function getState(string $currentStateId): StateInterface
+    public function showStateMachine(): void
     {
-        return StateHelper::getState($this->stateMap, $currentStateId);
-    }
-
-    private function isReady(): void
-    {
-        if (!$this->ready) {
-            throw new StateMachineException("State machine is not built yet, can not work");
-        }
+        $sysOutVisitor = new SysOutVisitor();
+        $this->accept($sysOutVisitor);
     }
 
     public function accept(VisitorInterface $visitor): string
@@ -87,13 +105,8 @@ class StateMachineImpl implements StateMachineInterface
         return $showResult;
     }
 
-    public function showStateMachine(): void
+    public function getMachineId(): string
     {
-        $sysOutVisitor = new SysOutVisitor();
-        $this->accept($sysOutVisitor);
-    }
-
-    public function getMachineId(): string{
         return $this->machineId;
     }
 
