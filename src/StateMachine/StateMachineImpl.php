@@ -119,4 +119,20 @@ class StateMachineImpl extends AbstractSubject implements StateMachineInterface
     {
         $this->ready = $ready;
     }
+
+    public function addTransitionPreListener(callable $listener): void
+    {
+        $this->addListener(
+            new class () implements PreTransitionEventInterface {},
+            $listener
+        );
+    }
+
+    public function addTransitionPostListener(callable $listener): void
+    {
+        $this->addListener(
+            new class () implements PostTransitionEventInterface {},
+            $listener
+        );
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DDDPHP\StateMachine\Dispatcher;
 
 use DDDPHP\StateMachine\Event\EventInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 
@@ -20,7 +21,11 @@ abstract class AbstractSubject implements ObservableInterface, ListenerProviderI
     }
     public function addListener(EventInterface $event, callable $listener): void
     {
-        $this->listeners[$event::class][] = $listener;
+        $classImplements = array_values(class_implements($event));
+        if (empty($classImplements[0])) {
+            throw new StateMachineException(" the event must implements an interface");
+        }
+        $this->listeners[$classImplements[0]][] = $listener;
     }
 
     public function fireEvent(EventInterface $event): void

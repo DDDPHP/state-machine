@@ -15,4 +15,8 @@ interface StateMachineInterface extends VisitableInterface
     public function getMachineId(): string;
 
     public function showStateMachine(): void;
+
+    public function addTransitionPreListener(callable $listener): void;
+
+    public function addTransitionPostListener(callable $listener): void;
 }
