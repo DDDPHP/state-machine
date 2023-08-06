@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Tests;
 
-use DDDPHP\StateMachine\ActionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
 use DDDPHP\StateMachine\Builder\StateMachineBuilderFactory;
-use DDDPHP\StateMachine\ConditionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
 use PHPUnit\Framework\TestCase;
 
 final class StateMachineChoiceTest extends TestCase
@@ -19,14 +19,15 @@ final class StateMachineChoiceTest extends TestCase
             {
                 $this->condition = $condition;
             }
+
+            /**
+             * @return string
+             */
             public function getCondition(): string
             {
                 return $this->condition;
             }
-            public function setCondition(string $condition): void
-            {
-                $this->condition = $condition;
-            }
+
             public function __toString(): string
             {
                 return $this->condition . 'contextClass';

@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
 
-use DDDPHP\StateMachine\ActionInterface;
-use DDDPHP\StateMachine\Builder\ExternalTransitionBuilderInterface;
-use DDDPHP\StateMachine\Builder\FromInterface;
-use DDDPHP\StateMachine\Builder\InternalTransitionBuilderInterface;
-use DDDPHP\StateMachine\Builder\OnInterface;
-use DDDPHP\StateMachine\Builder\ToInterface;
-use DDDPHP\StateMachine\Builder\WhenInterface;
-use DDDPHP\StateMachine\ConditionInterface;
-use DDDPHP\StateMachine\Impl\StateHelper;
-use DDDPHP\StateMachine\StateInterface;
-use DDDPHP\StateMachine\TransitionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\State\StateHelper;
+use DDDPHP\StateMachine\State\StateInterface;
+use DDDPHP\StateMachine\Transition\TransitionInterface;
 
 class TransitionBuilderImpl implements ExternalTransitionBuilderInterface, InternalTransitionBuilderInterface, FromInterface, OnInterface, ToInterface
 {

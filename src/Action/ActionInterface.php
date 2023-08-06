@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine;
+namespace DDDPHP\StateMachine\Action;
 
 interface ActionInterface
 {

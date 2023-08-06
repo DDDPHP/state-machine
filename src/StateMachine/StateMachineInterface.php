@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine;
+namespace DDDPHP\StateMachine\StateMachine;
+
+use DDDPHP\StateMachine\Visitor\VisitableInterface;
 
 interface StateMachineInterface extends VisitableInterface
 {

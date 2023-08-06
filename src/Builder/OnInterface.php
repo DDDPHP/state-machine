@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
 
-use DDDPHP\StateMachine\ConditionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
 
 interface OnInterface extends WhenInterface
 {

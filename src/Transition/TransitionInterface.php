@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine;
+namespace DDDPHP\StateMachine\Transition;
+
+use DDDPHP\StateMachine\Action\ActionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\State\StateInterface;
 
 interface TransitionInterface
 {

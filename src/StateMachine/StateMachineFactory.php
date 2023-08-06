@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
-
-use DDDPHP\StateMachine\Impl\StateMachineException;
-use DDDPHP\StateMachine\StateMachineInterface;
-use DDDPHP\StateMachine\StateMachineFactoryInterface;
+namespace DDDPHP\StateMachine\StateMachine;
 
 class StateMachineFactory implements StateMachineFactoryInterface
 {

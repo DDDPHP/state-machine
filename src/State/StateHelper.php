@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
-
-use DDDPHP\StateMachine\StateInterface;
+namespace DDDPHP\StateMachine\State;
 
 class StateHelper
 {
