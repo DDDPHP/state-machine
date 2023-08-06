@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Tests;
 
-use DDDPHP\StateMachine\ActionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
 use DDDPHP\StateMachine\Builder\StateMachineBuilderFactory;
-use DDDPHP\StateMachine\ConditionInterface;
-use DDDPHP\StateMachine\StateMachineInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineInterface;
 use PHPUnit\Framework\TestCase;
 
 final class StateMachineTest extends TestCase
@@ -89,7 +89,7 @@ final class StateMachineTest extends TestCase
 
     public function testExternalInternalNormal(): void
     {
-        $stateMachine = $this->buildStateMachine("testExternalInternalNormal");
+        $stateMachine = $this->buildStateMachine();
 
         $context = $this->context;
         $target = $stateMachine->fire(self::STATE1, self::EVENT1, $context);
@@ -105,7 +105,7 @@ final class StateMachineTest extends TestCase
         $this->assertEquals(self::STATE3, $target);
     }
 
-    private function buildStateMachine(string $machineId): StateMachineInterface
+    private function buildStateMachine(): StateMachineInterface
     {
         $builder = StateMachineBuilderFactory::create();
         $builder->externalTransition()
@@ -142,9 +142,9 @@ final class StateMachineTest extends TestCase
             ->when($this->checkCondition())
             ->perform($this->doAction());
 
-        $builder->build($machineId);
+        $builder->build("testExternalInternalNormal");
 
-        $stateMachine = $builder->getFactory()->get($machineId);
+        $stateMachine = $builder->getFactory()->get("testExternalInternalNormal");
         $stateMachine->showStateMachine();
 
         return $stateMachine;

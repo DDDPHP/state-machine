@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Tests;
 
-use DDDPHP\StateMachine\ActionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
 use DDDPHP\StateMachine\Builder\StateMachineBuilderFactory;
-use DDDPHP\StateMachine\ConditionInterface;
-use DDDPHP\StateMachine\Impl\StateMachineException;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineException;
 use PHPUnit\Framework\TestCase;
 
 final class StateMachineUnNormalTest extends TestCase
@@ -66,6 +66,10 @@ final class StateMachineUnNormalTest extends TestCase
             {
                 return false;
             }
+            public function getCondition(): string
+            {
+                return $this->condition;
+            }
             public function name(): string
             {
                 return 'conditionFalse';
@@ -79,6 +83,10 @@ final class StateMachineUnNormalTest extends TestCase
             public function isSatisfied($context): bool
             {
                 return true;
+            }
+            public function getCondition(): string
+            {
+                return $this->condition;
             }
             public function name(): string
             {

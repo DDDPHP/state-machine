@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine;
+namespace DDDPHP\StateMachine\State;
+
+use DDDPHP\StateMachine\Transition\TransitionInterface;
 
 interface StateInterface
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
+namespace DDDPHP\StateMachine\StateMachine;
 use RuntimeException;
 
 class StateMachineException extends RuntimeException
 {
-    
+
 }

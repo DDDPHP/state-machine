@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
+namespace DDDPHP\StateMachine\Transition;
 
-use DDDPHP\StateMachine\ActionInterface;
-use DDDPHP\StateMachine\ConditionInterface;
-use DDDPHP\StateMachine\StateInterface;
-use DDDPHP\StateMachine\TransitionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\State\StateInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineException;
 
 class TransitionImpl implements TransitionInterface
 {
@@ -48,9 +48,9 @@ class TransitionImpl implements TransitionInterface
         return $this->target;
     }
 
-    public function setTarget(StateInterface $target): void
+    public function setTarget(StateInterface $state): void
     {
-        $this->target = $target;
+        $this->target = $state;
     }
 
     public function getCondition(): ConditionInterface
@@ -101,7 +101,7 @@ class TransitionImpl implements TransitionInterface
 
     public function verify():void
     {
-        if($this->type == TransitionType::INTERNAL && $this->source != $this->target) {
+        if($this->type == TransitionType::INTERNAL && $this->source !== $this->target) {
             throw new StateMachineException(
                 sprintf(
                     'Internal transition source state "%s" and target state "%s" must be same.',

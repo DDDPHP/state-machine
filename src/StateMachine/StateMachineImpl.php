@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
+namespace DDDPHP\StateMachine\StateMachine;
 
 use DDDPHP\StateMachine\Dispatcher\AbstractSubject;
 use DDDPHP\StateMachine\Event\PostTransitionEventInterface;
 use DDDPHP\StateMachine\Event\PreTransitionEventInterface;
-use DDDPHP\StateMachine\Provider\Event;
-use DDDPHP\StateMachine\StateInterface;
-use DDDPHP\StateMachine\StateMachineInterface;
-use DDDPHP\StateMachine\TransitionInterface;
-use DDDPHP\StateMachine\VisitorInterface;
+use DDDPHP\StateMachine\State\StateHelper;
+use DDDPHP\StateMachine\State\StateInterface;
+use DDDPHP\StateMachine\Transition\TransitionInterface;
+use DDDPHP\StateMachine\Visitor\SysOutVisitor;
+use DDDPHP\StateMachine\Visitor\VisitorInterface;
 
 class StateMachineImpl extends AbstractSubject implements StateMachineInterface
 {

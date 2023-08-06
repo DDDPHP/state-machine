@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
 
-use DDDPHP\StateMachine\ActionInterface;
-use DDDPHP\StateMachine\ConditionInterface;
-use DDDPHP\StateMachine\Impl\StateHelper;
+use DDDPHP\StateMachine\Action\ActionInterface;
+use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\State\StateHelper;
 
 class TransitionsBuilderImpl extends TransitionBuilderImpl implements ExternalTransitionsBuilderInterface
 {

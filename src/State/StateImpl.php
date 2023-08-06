@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace DDDPHP\StateMachine\Impl;
+namespace DDDPHP\StateMachine\State;
 
-use DDDPHP\StateMachine\StateInterface;
-use DDDPHP\StateMachine\TransitionInterface;
-use DDDPHP\StateMachine\VisitorInterface;
+use DDDPHP\StateMachine\Transition\TransitionImpl;
+use DDDPHP\StateMachine\Transition\TransitionInterface;
+use DDDPHP\StateMachine\Visitor\VisitorInterface;
 
 class StateImpl implements StateInterface
 {

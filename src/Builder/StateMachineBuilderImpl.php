@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
 
-use DDDPHP\StateMachine\Impl\StateMachineImpl;
-use DDDPHP\StateMachine\Impl\TransitionType;
-use DDDPHP\StateMachine\Impl\StateMachineFactory;
-use DDDPHP\StateMachine\StateMachineFactoryInterface;
-use DDDPHP\StateMachine\StateMachineInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineFactory;
+use DDDPHP\StateMachine\StateMachine\StateMachineFactoryInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineImpl;
+use DDDPHP\StateMachine\StateMachine\StateMachineInterface;
+use DDDPHP\StateMachine\Transition\TransitionType;
 
 class StateMachineBuilderImpl implements StateMachineBuilderInterface
 {

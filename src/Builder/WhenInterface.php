@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
-use DDDPHP\StateMachine\ActionInterface;
+use DDDPHP\StateMachine\Action\ActionInterface;
 
 interface WhenInterface
 {

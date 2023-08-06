@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types=1);ect
 
-namespace DDDPHP\StateMachine\Impl;
+namespace DDDPHP\StateMachine\State;
 
-use DDDPHP\StateMachine\Impl\StateMachineException;
-use DDDPHP\StateMachine\TransitionInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineException;
+use DDDPHP\StateMachine\Transition\TransitionInterface;
 
 class EventTransitions
 {

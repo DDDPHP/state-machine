@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 namespace DDDPHP\StateMachine\Builder;
-use DDDPHP\StateMachine\StateMachineFactoryInterface;
-use DDDPHP\StateMachine\StateMachineInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineFactoryInterface;
+use DDDPHP\StateMachine\StateMachine\StateMachineInterface;
 
 interface StateMachineBuilderInterface
 {
