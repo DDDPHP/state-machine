@@ -7,6 +7,7 @@ namespace DDDPHP\StateMachine\Tests;
 use DDDPHP\StateMachine\Action\ActionInterface;
 use DDDPHP\StateMachine\Builder\StateMachineBuilderFactory;
 use DDDPHP\StateMachine\Condition\ConditionInterface;
+use DDDPHP\StateMachine\Event\PreTransitionEventInterface;
 use DDDPHP\StateMachine\StateMachine\StateMachineInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -87,6 +88,31 @@ final class StateMachineTest extends TestCase
         $this->assertEquals(self::STATE1, $target);
     }
 
+    public function testTransitionListener() :void
+    {
+        $preTransitionListenerCount = 0;
+        $postTransitionListenerCount = 0;
+        $builder = StateMachineBuilderFactory::create();
+        $builder->externalTransitions()
+            ->fromAmong(self::STATE1, self::STATE2, self::STATE3)
+            ->to(self::STATE4)
+            ->on(self::EVENT1)
+            ->when($this->checkCondition())
+            ->perform($this->doAction());
+        $stateMachine = $builder->build(self::MACHINE_ID . "transition-listener");
+
+        $stateMachine->addTransitionPreListener(function () use (&$preTransitionListenerCount) {
+            $preTransitionListenerCount += 1;
+        });
+        $stateMachine->addTransitionPostListener(function () use (&$postTransitionListenerCount) {
+            $postTransitionListenerCount += 2;
+        });
+
+        $stateMachine->fire(self::STATE2, self::EVENT1, $this->context);
+
+        $this->assertEquals(1, $preTransitionListenerCount);
+        $this->assertEquals(2, $postTransitionListenerCount);
+    }
     public function testExternalInternalNormal(): void
     {
         $stateMachine = $this->buildStateMachine();
